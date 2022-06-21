@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1 (Python 3.6.8 on win32)" generated="20220621 15:39:14.359" rpa="false">
+<suite id="s1" name="Zhhb Api" source="E:\Code\zhhb_api">
+<suite id="s1-s1" name="Testcases" source="E:\Code\zhhb_api\testcases">
+<suite id="s1-s1-s1" name="Login" source="E:\Code\zhhb_api\testcases\Login.robot">
+<test id="s1-s1-s1-t1" name="logins">
+<kw name="Comment" library="BuiltIn">
+<doc>Displays the given messages in the log file as keyword arguments.</doc>
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>Set Variable</arg>
+<arg>${file}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.459" endtime="20220621 15:39:14.459"></status>
+</kw>
+<kw name="Get Test Case Num" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+</arguments>
+<assign>
+<var>${rowNum}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.462" level="INFO">${rowNum} = 3</msg>
+<status status="PASS" starttime="20220621 15:39:14.459" endtime="20220621 15:39:14.462"></status>
+</kw>
+<kw name="${i} IN RANGE [ 1 | ${rowNum}+1 ]" type="for">
+<kw name="${i} = 1" type="foritem">
+<kw name="Get Test Http Method" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${method}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.465" level="INFO">${method} = post</msg>
+<status status="PASS" starttime="20220621 15:39:14.463" endtime="20220621 15:39:14.465"></status>
+</kw>
+<kw name="Get One Test Case" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${testCaseObj}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.468" level="INFO">登录成功 post /sys/mLogin/</msg>
+<msg timestamp="20220621 15:39:14.468" level="INFO">${testCaseObj} = &lt;testCaseObj.TestCaseObj object at 0x000002C8725C06D8&gt;</msg>
+<status status="PASS" starttime="20220621 15:39:14.465" endtime="20220621 15:39:14.468"></status>
+</kw>
+<kw name="sendRequest" library="utils">
+<doc>发送请求</doc>
+<arguments>
+<arg>${testCaseObj.method}</arg>
+<arg>${zhpt_api_url}</arg>
+<arg>${testCaseObj.path_url}</arg>
+<arg>${testCaseObj.headers}</arg>
+<arg>${testCaseObj.params}</arg>
+<arg>${testCaseObj.body}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${host_url}${path_url}</arg>
+</arguments>
+<assign>
+<var>${url}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.469" level="INFO">${url} = http://119.3.127.92:9999/sys/mLogin/</msg>
+<status status="PASS" starttime="20220621 15:39:14.469" endtime="20220621 15:39:14.469"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.469" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.469" level="INFO">To JSON using : content={
+        "username":"宋词",
+        "password":"Asdf12#$"
+    } </msg>
+<msg timestamp="20220621 15:39:14.469" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.470" level="INFO">${params} = {'username': '宋词', 'password': 'Asdf12#$'}</msg>
+<status status="PASS" starttime="20220621 15:39:14.469" endtime="20220621 15:39:14.470"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.470" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.470" level="INFO">To JSON using : content={
+        "Content-Type":"application/json"
+    } </msg>
+<msg timestamp="20220621 15:39:14.470" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.470" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20220621 15:39:14.470" endtime="20220621 15:39:14.470"></status>
+</kw>
+<kw name="Send HttpRequest" library="execExcelLibrary">
+<arguments>
+<arg>${url}</arg>
+<arg>${params}</arg>
+<arg>${headers}</arg>
+<arg>${method}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.532" level="INFO">{"success":true,"message":"操作成功！","code":200,"result":{"userInfo":{"id":"1492082025049112577","username":"宋词","realname":"宋词","avatar":null,"enterprise":null,"birthday":null,"sex":null,"email":null,"phone":null,"orgCode":"A01A05","orgCodeTxt":"项目实施部","status":1,"delFlag":0,"workNo":null,"post":null,"telephone":null,"createBy":"admin","createTime":"2022-02-11 18:24:11","updateBy":"宋词","updateTime":"2022-06-21 15:34:03","activitiSync":1,"userIdentity":1,"departIds":"","relTenantIds":"","clientId":null,"empId":"1492073695975063554","empName":null,"deptId":null,"deptCode":null,"postIds":null,"userType":"internal","isSelectPark":true,"parkId":"1492090441201106945","parkName":"淮北相山经济开发区"},"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTU4ODM1NTMsInVzZXJuYW1lIjoi5a6L6K-NIn0.mkWZhFLeb9kB7uf0NtBI3NXugWy-hxNIRQFUhd8EIno"},"timestamp":1655797153398}</msg>
+<msg timestamp="20220621 15:39:14.532" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.532" level="INFO">${content} = {"success":true,"message":"操作成功！","code":200,"result":{"userInfo":{"id":"1492082025049112577","username":"宋词","realname":"宋词","avatar":null,"enterprise":null,"birthday":null,"sex":null,"email":null,"p...</msg>
+<status status="PASS" starttime="20220621 15:39:14.471" endtime="20220621 15:39:14.532"></status>
+</kw>
+<msg timestamp="20220621 15:39:14.533" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.533" level="INFO">${content} = {"success":true,"message":"操作成功！","code":200,"result":{"userInfo":{"id":"1492082025049112577","username":"宋词","realname":"宋词","avatar":null,"enterprise":null,"birthday":null,"sex":null,"email":null,"p...</msg>
+<status status="PASS" starttime="20220621 15:39:14.468" endtime="20220621 15:39:14.533"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${content}</arg>
+</arguments>
+<assign>
+<var>${json_content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.533" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.533" level="INFO">To JSON using : content={"success":true,"message":"操作成功！","code":200,"result":{"userInfo":{"id":"1492082025049112577","username":"宋词","realname":"宋词","avatar":null,"enterprise":null,"birthday":null,"sex":null,"email":null,"phone":null,"orgCode":"A01A05","orgCodeTxt":"项目实施部","status":1,"delFlag":0,"workNo":null,"post":null,"telephone":null,"createBy":"admin","createTime":"2022-02-11 18:24:11","updateBy":"宋词","updateTime":"2022-06-21 15:34:03","activitiSync":1,"userIdentity":1,"departIds":"","relTenantIds":"","clientId":null,"empId":"1492073695975063554","empName":null,"deptId":null,"deptCode":null,"postIds":null,"userType":"internal","isSelectPark":true,"parkId":"1492090441201106945","parkName":"淮北相山经济开发区"},"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTU4ODM1NTMsInVzZXJuYW1lIjoi5a6L6K-NIn0.mkWZhFLeb9kB7uf0NtBI3NXugWy-hxNIRQFUhd8EIno"},"timestamp":1655797153398} </msg>
+<msg timestamp="20220621 15:39:14.534" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.534" level="INFO">${json_content} = {'success': True, 'message': '操作成功！', 'code': 200, 'result': {'userInfo': {'id': '1492082025049112577', 'username': '宋词', 'realname': '宋词', 'avatar': None, 'enterprise': None, 'birthday': None, 'sex':...</msg>
+<status status="PASS" starttime="20220621 15:39:14.533" endtime="20220621 15:39:14.534"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json_content}</arg>
+<arg>code</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.534" level="INFO">${code1} = 200</msg>
+<status status="PASS" starttime="20220621 15:39:14.534" endtime="20220621 15:39:14.534"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>float(${code1})</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.535" level="INFO">${code1} = 200.0</msg>
+<status status="PASS" starttime="20220621 15:39:14.534" endtime="20220621 15:39:14.535"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${testCaseObj.expect_code}</arg>
+<arg>${code1}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.535" endtime="20220621 15:39:14.535"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${content}</arg>
+<arg>${testCaseObj.expect_content}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.535" endtime="20220621 15:39:14.536"></status>
+</kw>
+<status status="PASS" starttime="20220621 15:39:14.462" endtime="20220621 15:39:14.536"></status>
+</kw>
+<kw name="${i} = 2" type="foritem">
+<kw name="Get Test Http Method" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${method}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.538" level="INFO">${method} = post</msg>
+<status status="PASS" starttime="20220621 15:39:14.536" endtime="20220621 15:39:14.538"></status>
+</kw>
+<kw name="Get One Test Case" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${testCaseObj}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.541" level="INFO">用户名为空，登录失败 post /sys/mLogin/</msg>
+<msg timestamp="20220621 15:39:14.541" level="INFO">${testCaseObj} = &lt;testCaseObj.TestCaseObj object at 0x000002C872622FD0&gt;</msg>
+<status status="PASS" starttime="20220621 15:39:14.538" endtime="20220621 15:39:14.541"></status>
+</kw>
+<kw name="sendRequest" library="utils">
+<doc>发送请求</doc>
+<arguments>
+<arg>${testCaseObj.method}</arg>
+<arg>${zhpt_api_url}</arg>
+<arg>${testCaseObj.path_url}</arg>
+<arg>${testCaseObj.headers}</arg>
+<arg>${testCaseObj.params}</arg>
+<arg>${testCaseObj.body}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${host_url}${path_url}</arg>
+</arguments>
+<assign>
+<var>${url}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.542" level="INFO">${url} = http://119.3.127.92:9999/sys/mLogin/</msg>
+<status status="PASS" starttime="20220621 15:39:14.541" endtime="20220621 15:39:14.542"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.542" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.542" level="INFO">To JSON using : content={
+        "username":"",
+        "password":"Asdf12#$"
+    } </msg>
+<msg timestamp="20220621 15:39:14.542" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.542" level="INFO">${params} = {'username': '', 'password': 'Asdf12#$'}</msg>
+<status status="PASS" starttime="20220621 15:39:14.542" endtime="20220621 15:39:14.542"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.543" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.543" level="INFO">To JSON using : content={
+        "Content-Type":"application/json"
+    } </msg>
+<msg timestamp="20220621 15:39:14.543" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.543" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20220621 15:39:14.543" endtime="20220621 15:39:14.543"></status>
+</kw>
+<kw name="Send HttpRequest" library="execExcelLibrary">
+<arguments>
+<arg>${url}</arg>
+<arg>${params}</arg>
+<arg>${headers}</arg>
+<arg>${method}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.580" level="INFO">{"success":false,"message":"该用户不存在，请注册","code":500,"result":null,"timestamp":1655797153470}</msg>
+<msg timestamp="20220621 15:39:14.580" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.581" level="INFO">${content} = {"success":false,"message":"该用户不存在，请注册","code":500,"result":null,"timestamp":1655797153470}</msg>
+<status status="PASS" starttime="20220621 15:39:14.543" endtime="20220621 15:39:14.581"></status>
+</kw>
+<msg timestamp="20220621 15:39:14.581" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.581" level="INFO">${content} = {"success":false,"message":"该用户不存在，请注册","code":500,"result":null,"timestamp":1655797153470}</msg>
+<status status="PASS" starttime="20220621 15:39:14.541" endtime="20220621 15:39:14.581"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${content}</arg>
+</arguments>
+<assign>
+<var>${json_content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.581" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.582" level="INFO">To JSON using : content={"success":false,"message":"该用户不存在，请注册","code":500,"result":null,"timestamp":1655797153470} </msg>
+<msg timestamp="20220621 15:39:14.582" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.582" level="INFO">${json_content} = {'success': False, 'message': '该用户不存在，请注册', 'code': 500, 'result': None, 'timestamp': 1655797153470}</msg>
+<status status="PASS" starttime="20220621 15:39:14.581" endtime="20220621 15:39:14.582"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json_content}</arg>
+<arg>code</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.582" level="INFO">${code1} = 500</msg>
+<status status="PASS" starttime="20220621 15:39:14.582" endtime="20220621 15:39:14.582"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>float(${code1})</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.583" level="INFO">${code1} = 500.0</msg>
+<status status="PASS" starttime="20220621 15:39:14.583" endtime="20220621 15:39:14.583"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${testCaseObj.expect_code}</arg>
+<arg>${code1}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.583" endtime="20220621 15:39:14.583"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${content}</arg>
+<arg>${testCaseObj.expect_content}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.583" endtime="20220621 15:39:14.584"></status>
+</kw>
+<status status="PASS" starttime="20220621 15:39:14.536" endtime="20220621 15:39:14.584"></status>
+</kw>
+<kw name="${i} = 3" type="foritem">
+<kw name="Get Test Http Method" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${method}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.586" level="INFO">${method} = post</msg>
+<status status="PASS" starttime="20220621 15:39:14.584" endtime="20220621 15:39:14.586"></status>
+</kw>
+<kw name="Get One Test Case" library="parseExcelLibrary">
+<arguments>
+<arg>${testcaseDatas}</arg>
+<arg>login</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${testCaseObj}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.589" level="INFO">密码为空，登录失败 post /sys/mLogin/</msg>
+<msg timestamp="20220621 15:39:14.589" level="INFO">${testCaseObj} = &lt;testCaseObj.TestCaseObj object at 0x000002C87265B208&gt;</msg>
+<status status="PASS" starttime="20220621 15:39:14.587" endtime="20220621 15:39:14.589"></status>
+</kw>
+<kw name="sendRequest" library="utils">
+<doc>发送请求</doc>
+<arguments>
+<arg>${testCaseObj.method}</arg>
+<arg>${zhpt_api_url}</arg>
+<arg>${testCaseObj.path_url}</arg>
+<arg>${testCaseObj.headers}</arg>
+<arg>${testCaseObj.params}</arg>
+<arg>${testCaseObj.body}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${host_url}${path_url}</arg>
+</arguments>
+<assign>
+<var>${url}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.590" level="INFO">${url} = http://119.3.127.92:9999/sys/mLogin/</msg>
+<status status="PASS" starttime="20220621 15:39:14.589" endtime="20220621 15:39:14.590"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${params}</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.590" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.590" level="INFO">To JSON using : content={
+        "username":"宋词",
+        "password":""
+    } </msg>
+<msg timestamp="20220621 15:39:14.590" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.590" level="INFO">${params} = {'username': '宋词', 'password': ''}</msg>
+<status status="PASS" starttime="20220621 15:39:14.590" endtime="20220621 15:39:14.591"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${headers}</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.591" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.591" level="INFO">To JSON using : content={
+        "Content-Type":"application/json"
+    } </msg>
+<msg timestamp="20220621 15:39:14.591" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.591" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20220621 15:39:14.591" endtime="20220621 15:39:14.591"></status>
+</kw>
+<kw name="Send HttpRequest" library="execExcelLibrary">
+<arguments>
+<arg>${url}</arg>
+<arg>${params}</arg>
+<arg>${headers}</arg>
+<arg>${method}</arg>
+</arguments>
+<assign>
+<var>${code}</var>
+<var>${content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.624" level="INFO">{"success":false,"message":"用户名或密码错误","code":500,"result":null,"timestamp":1655797153516}</msg>
+<msg timestamp="20220621 15:39:14.624" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.625" level="INFO">${content} = {"success":false,"message":"用户名或密码错误","code":500,"result":null,"timestamp":1655797153516}</msg>
+<status status="PASS" starttime="20220621 15:39:14.591" endtime="20220621 15:39:14.625"></status>
+</kw>
+<msg timestamp="20220621 15:39:14.625" level="INFO">${code} = 200</msg>
+<msg timestamp="20220621 15:39:14.625" level="INFO">${content} = {"success":false,"message":"用户名或密码错误","code":500,"result":null,"timestamp":1655797153516}</msg>
+<status status="PASS" starttime="20220621 15:39:14.589" endtime="20220621 15:39:14.625"></status>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<arguments>
+<arg>${content}</arg>
+</arguments>
+<assign>
+<var>${json_content}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.625" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.626" level="INFO">To JSON using : content={"success":false,"message":"用户名或密码错误","code":500,"result":null,"timestamp":1655797153516} </msg>
+<msg timestamp="20220621 15:39:14.626" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220621 15:39:14.626" level="INFO">${json_content} = {'success': False, 'message': '用户名或密码错误', 'code': 500, 'result': None, 'timestamp': 1655797153516}</msg>
+<status status="PASS" starttime="20220621 15:39:14.625" endtime="20220621 15:39:14.626"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${json_content}</arg>
+<arg>code</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.626" level="INFO">${code1} = 500</msg>
+<status status="PASS" starttime="20220621 15:39:14.626" endtime="20220621 15:39:14.626"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>float(${code1})</arg>
+</arguments>
+<assign>
+<var>${code1}</var>
+</assign>
+<msg timestamp="20220621 15:39:14.627" level="INFO">${code1} = 500.0</msg>
+<status status="PASS" starttime="20220621 15:39:14.626" endtime="20220621 15:39:14.627"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${testCaseObj.expect_code}</arg>
+<arg>${code1}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.627" endtime="20220621 15:39:14.627"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${content}</arg>
+<arg>${testCaseObj.expect_content}</arg>
+</arguments>
+<status status="PASS" starttime="20220621 15:39:14.628" endtime="20220621 15:39:14.628"></status>
+</kw>
+<status status="PASS" starttime="20220621 15:39:14.584" endtime="20220621 15:39:14.628"></status>
+</kw>
+<status status="PASS" starttime="20220621 15:39:14.462" endtime="20220621 15:39:14.628"></status>
+</kw>
+<doc>数据源：excel数据。</doc>
+<tags>
+<tag>all</tag>
+</tags>
+<status status="PASS" starttime="20220621 15:39:14.458" endtime="20220621 15:39:14.628" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20220621 15:39:14.390" endtime="20220621 15:39:14.629"></status>
+</suite>
+<status status="PASS" starttime="20220621 15:39:14.389" endtime="20220621 15:39:14.629"></status>
+</suite>
+<status status="PASS" starttime="20220621 15:39:14.372" endtime="20220621 15:39:14.630"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0">all</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="Zhhb Api">Zhhb Api</stat>
+<stat pass="1" fail="0" id="s1-s1" name="Testcases">Zhhb Api.Testcases</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="Login">Zhhb Api.Testcases.Login</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220621 15:39:14.354" level="ERROR">Ignoring second test suite init file 'E:\Code\zhhb_api\common\__init__.txt'.</msg>
+<msg timestamp="20220621 15:39:14.457" level="ERROR">Error in file 'E:\Code\zhhb_api\testcases\Login.robot': Unsupported file format 'xls'.</msg>
+<msg timestamp="20220621 15:39:14.469" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.470" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.533" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.542" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.543" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.581" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.590" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.591" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220621 15:39:14.625" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+</errors>
+</robot>

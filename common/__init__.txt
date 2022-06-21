@@ -1,0 +1,3 @@
+*** Settings ***
+Library           execExcelLibrary
+Library           parseExcelLibrary

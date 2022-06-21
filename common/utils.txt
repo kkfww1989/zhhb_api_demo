@@ -1,0 +1,15 @@
+*** Settings ***
+Library           Collections
+Library           parseExcelLibrary
+Library           execExcelLibrary
+Library           RequestsLibrary
+
+*** Keywords ***
+sendRequest
+    [Arguments]    ${method}    ${host_url}    ${path_url}    ${headers}    ${params}    ${body}
+    [Documentation]    发送请求
+    ${url}    Set Variable    ${host_url}${path_url}
+    ${params}    To JSON    ${params}
+    ${headers}    To JSON    ${headers}
+    ${code}    ${content}    send_HttpRequest    ${url}    ${params}    ${headers}    ${method}
+    [Return]    ${code}    ${content}

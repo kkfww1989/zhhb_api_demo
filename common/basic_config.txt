@@ -1,0 +1,6 @@
+*** Variables ***
+${hmhb_ur}        http://119.3.127.92/user/login    #环保管家测试环境网址
+${zhpt_url}       http://119.3.127.92:8082/#/login
+${username}       宋词
+${password}       Asdf12#$
+${zhpt_api_url}    http://119.3.127.92:9999    # http://119.3.127.92:9999

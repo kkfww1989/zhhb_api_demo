@@ -1,0 +1,13 @@
+*** Settings ***
+Resource          ../common/basic_info.txt
+Resource          ../common/service.txt
+
+*** Test Cases ***
+query_event
+    ${token}    ${parkId}    login    ${username}    ${password}
+    log    ${token}
+    ${url}    set variable    /jeecg-imp/api/imp/online/water/event/queryEventIdsList
+    ${header}    create dictionary    X-Access-Token=${token}
+    ${params}    create dictionary    parkId=${parkId}    dealStatus=2
+    ${req}    create session    ${url}    params=${params}    headers=${header}
+    log    ${req}

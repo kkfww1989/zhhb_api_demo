@@ -1,0 +1,46 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Resource          basic_config.txt
+Library           parseExcelLibrary
+Library           execExcelLibrary
+
+*** Variables ***
+${park_url}       /api/hmhb/park/tbHmhbPark/queryById    # 园区基本信息查询
+${query_pie_url}    /api/hmhb/analysis/pie/impQueryPie    # 园区企业统计数量接口
+
+*** Keywords ***
+login
+    [Arguments]    ${username}    ${password}
+    [Documentation]    登录环保管家测试环境大屏前台；
+    ...    形参：用户名 密码；
+    create session    loginReq    ${zhpt_api_url}
+    ${jsons}    create Dictionary    username=${username}    password=${password}
+    ${headers}    create Dictionary    Content-Type=application/json
+    ${res}    post on session    loginReq    /sys/mLogin/    json=${jsons}    headers=${headers}
+    log    ${res.json()}
+    ${result}    Get From Dictionary    ${res.json()}    result
+    ${token}    Get From Dictionary    ${result}    token
+    log    ${token}
+    ${userInfo}    Get From Dictionary    ${result}    userInfo
+    ${parkId}    Get From Dictionary    ${userInfo}    parkId
+    log    ${parkId}
+    ${code}    Get From Dictionary    ${res.json()}    code
+    log    ${code}
+    [Return]    ${token}    ${parkId}    ${code}
+
+park
+    [Arguments]    ${parkId}
+    create session    loginReq    ${zhpt_api_url}
+    ${headers}    create Dictionary    Content-Type=application/json
+    ${parkId}    create Dictionary    id=${parkId}
+    ${res}    get on session    loginReq    ${park_url}    params=${parkId}    headers=${headers}
+    log    ${res.json()}
+
+query_pie
+    [Arguments]    ${pardId}    ${statsType}
+    create session    req    ${zhpt_api_url}
+    ${headers}    create Dictionary    Content-Type=application/json
+    ${params}    create Dictionary    id=${parkId}    statsType=${statsType}
+    ${res}    get on session    req    ${query_pie_url}    params=${params}    headers=${headers}
+    log    ${res.json()}
